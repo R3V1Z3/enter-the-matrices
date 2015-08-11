@@ -1,0 +1,11 @@
+body {    
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100%;
+    font-family: 'Share Tech Mono';
+    overflow:hidden;
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}

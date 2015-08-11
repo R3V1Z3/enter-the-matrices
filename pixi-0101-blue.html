@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='//fonts.googleapis.com/css?family=Share+Tech+Mono' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="client/css/pixi-0101.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pixi.js/3.0.6/pixi.min.js"></script>
+
+</head>
+
+<body>
+    <div id="pixi-canvas"></div>
+    <script>
+    
+        // CONSTANTS
+        var maxChars = 100;
+        var maxShadowLength = 16;
+        var characters = "01";
+        // get window dimensions
+        var displayWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+        var displayHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        
+        var style = {
+            font: '60px Share Tech Mono, Courier, monospace',
+            fill: '#2244ff'
+        };
+        
+        var styleShadow = {
+            font: '60px Share Tech Mono, Courier, monospace',
+            fill: '#0000ff'
+        };
+        
+        // CALCULATED BASED ON CONSTANTS
+        var percentAlpha = 1/maxShadowLength;
+        var maxShadows = maxChars * maxShadowLength;
+        
+        // MISC
+        var chars = [];
+        var shadows = [];
+
+        function rand (low, high) {
+            return Math.floor((Math.random() * high) + low);
+        };
+
+        var renderer = PIXI.autoDetectRenderer(displayWidth, displayHeight, {
+            backgroundColor: 0x000000
+        });
+        document.body.appendChild(renderer.view);
+
+        var stage = new PIXI.Container();
+
+        // randomize chars when they hit screen edges
+        function randomize_char(c) {
+            c.x = 0;
+            c.y = rand(0, displayHeight);
+            c.text = characters[rand(0, characters.length)];
+            // vary the size
+            var scale = 1 * Math.random();
+            if (scale > 0.25) {
+                c.scale.x = scale;
+                c.scale.y = scale;
+            }
+            return;
+        };
+
+        // create chars
+        for (var i = 0; i < maxChars; i++) {
+            var c = new PIXI.Text('0', style);
+            randomize_char(c);
+            stage.addChild(c);
+            chars.push(c);
+        }
+        
+        // populate shadow array
+        for (var i = 0; i < maxShadows; i++) {
+            var shadow = new PIXI.Text('0', styleShadow);
+            //shadow.blendMode = PIXI.BLEND_MODES.MULTIPLY;
+            // keep shadows unrendered initially
+            shadow.renderable = false;
+            stage.addChild(shadow);
+            shadows.push(shadow);
+        }
+        
+        function findAvailableShadow() {
+            for (var i = 0; i < maxShadows; i++) {
+                var shadow = shadows[i];
+                if (shadow.renderable == false) {
+                    return i;
+                }
+            }
+            // no shadow available, return -1
+            return -1;
+        }
+
+        // start animating
+        animate();
+
+        function animate() {
+
+            requestAnimationFrame(animate);
+
+            // animate shadows
+            for (var i = 0; i < shadows.length; i++) {
+                var shadow = shadows[i];
+                // don't render off-screen shadows, leave them open for future
+                if (shadow.alpha <= 0) {
+                    shadow.renderable = false;
+                } else {
+                    shadow.alpha -= percentAlpha;
+                }
+            }
+            
+            // animate chars
+            for (var i = 0; i < chars.length; i++) {
+                var c = chars[i];
+                // first render shadow for this char
+                var s = findAvailableShadow();
+                if (s >= 0) {
+                    var shadow = shadows[s];
+                    shadow.text = c.text;
+                    shadow.x = c.x;
+                    shadow.y = c.y;
+                    shadow.scale.x = c.scale.x;
+                    shadow.scale.y = c.scale.y;
+                    // decrement alpha a bit
+                    shadow.alpha = c.alpha - percentAlpha;
+                    shadow.renderable = true;
+                }
+                //move chars depending on direction
+                c.x += c.width;
+                if (c.x > displayWidth) {
+                    randomize_char(c);
+                }
+                // change the character
+                c.text = characters[rand(0, characters.length)];
+            }
+
+            // render the root container
+            renderer.render(stage);
+        };
+    </script>
+</body>
+
+</html>

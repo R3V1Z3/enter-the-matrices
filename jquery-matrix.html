@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="client/css/html-matrix.css">
+    <script type="text/javascript">
+    
+        // http://stackoverflow.com/questions/11582512/how-to-get-url-parameters-with-javascript/11582513#11582513
+        function getURLParameter(name) {
+            return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
+        }
+
+        var maxChars = getURLParameter('maxchars');
+        if (!maxChars) maxChars = 20;
+        var maxShadowLength = getURLParameter('maxshadowlength');
+        if (!maxShadowLength) maxShadowLength = 16;
+    
+        var chars = [];
+        var shadows = [];
+        var characters = "abcdefghijklmnopqrstuvwxyz01234567890-=_+!#$%^&*()";
+
+        jQuery(document).ready(function() {
+
+            // move on timer
+            setInterval(function() {
+                $('.clone').each(
+                    function(){
+                        var alpha = $(this).css("opacity");
+                        // destroy clone once it's not visible
+                        if (alpha <= 0) {
+                            $(this).remove();
+                        } else {
+                            alpha -= 0.05;
+                            $(this).css("opacity", alpha);
+                        }
+                    });
+                $('.char').each(
+                    function(){
+                        // create clones
+                        $(this).clone().removeClass('char').addClass('clone').insertAfter($(this));
+                        // move chars
+                        var increment = parseInt($(this).css('font-size'));
+                        $(this).css("top", '+=' + increment);
+                        if ($(this).position().top > displayHeight) {
+                            // off-screen, randomize again
+                            $(this).replaceWith(randomizeChar());
+                        }
+                        // change character
+                        var char = characters[rand(0, characters.length)];
+                        $(this).text(char);
+                    });
+                    
+            }, 10);
+            
+            var randomizeChar = function() {
+                var char = characters[rand(0, characters.length)];
+                var size = rand(8, 30);
+                var x = rand(0, displayWidth);
+                var y = 0;
+                var result = '<div class="char" style="';
+                result += 'width:' + size + 'px;';
+                result += 'height:' + size + 'px;';
+                result += 'font-size:' + size + 'px;';
+                result += 'left:' + x + 'px;';
+                result += 'top:' + y + 'px;"';
+                result += '>';
+                result += char;
+                result += '</div>';
+                return result;
+            }
+            
+            var displayWidth = $(document).width();
+            var displayHeight = $(document).height();
+            // resize canvas to height of window
+            $("#matrix").height(displayHeight);
+            // create matrix chars
+            for (var i = 0; i < maxChars; i++) {
+                // pick a random character
+                var $char = $(randomizeChar()).appendTo('#matrix');
+            }
+
+        });
+        
+        // handle window resizes
+        jQuery(window).resize(function() {
+            var bodyheight = $(document).height();
+            $("#matrix").height(bodyheight);
+        });
+    
+        var rand = function(low, high) {
+            return Math.floor((Math.random() * high) + low);
+        };
+
+    </script>
+
+</head>
+
+<body>
+    <div id="matrix"></div>
+</body>
+
+</html>

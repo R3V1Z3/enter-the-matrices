@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="client/css/dot-matrix.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/p5.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/addons/p5.sound.min.js"></script>
+    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/addons/p5.dom.min.js"></script>-->
+    <script>
+        var points = [];
+        var shadows = [];
+
+        // setup method for handling points
+        var point_factory = function(width, height) {
+            
+            this.shadows=[];
+            
+            this.init = function() {
+                this.x = Math.floor((Math.random() * width) + 1);
+                this.y = 0;
+                this.increment = Math.floor((Math.random() * 13) + 3);
+                this.intensity = 255;
+                //this.intensity = Math.floor((Math.random() * 255) + 1);
+            }
+            
+            this.draw = function() {
+                stroke(this.intensity, this.intensity, this.intensity);
+                point(this.x, this.y);
+            }
+
+            // call this with each iteration to adjust intensity
+            this.update = function() {
+                this.y += this.increment;
+                if (this.y > height) {
+                    this.init();
+                }
+                // random flicker
+                //var r = Math.floor((Math.random() * 255));
+                //if (r > 250) this.flicker = true;
+            }
+        };
+        
+        // setup shadow 
+        var shadow = function(x, y, intensity) {
+            this.x = x;
+            this.y = y;
+            this.intensity = intensity - 20;
+            this.draw = function() {
+                stroke(this.intensity, this.intensity, this.intensity);
+                point(this.x, this.y);
+            }
+            this.update = function() {
+                this.intensity -= 30;
+            }
+        }
+
+        function setup() {
+            createCanvas(displayWidth, displayHeight);
+            background(0, 0, 0);
+            for (var i = 0; i < 30; i++) {
+                var p = new point_factory(displayWidth, displayHeight);
+                p.init();
+                points.push(p);
+            }
+        }
+
+        function draw() {
+            background(0, 0, 0);
+            color(0, 255, 255);
+            stroke(255, 255, 255);
+            strokeWeight(3);
+            
+            // draw the dots
+            for (var i = 0; i < points.length; i++) {
+                var p = points[i];
+                p.draw();
+                p.update();
+                
+                // create shadows
+                var s = new shadow(p.x, p.y, p.intensity);
+                shadows.push(s);
+            }
+            
+            // draw shadows
+            for (var i = 0; i < shadows.length; i++) {
+                var s = shadows[i];
+                s.update();
+                s.draw();
+                
+                // remove shadows with 0 intensity
+                if (s.intensity <= 0) shadows.splice(i, 1);
+            }
+        };
+        
+        function windowResized() {
+            resizeCanvas(displayWidth, displayHeight);
+        };
+    </script>
+
+</head>
+
+<body onLoad="setup();">
+
+</body>
+
+</html>
