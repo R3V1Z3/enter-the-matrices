@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="client/css/p5-matrix.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/p5.min.js"></script>
+    <script>
+        // http://stackoverflow.com/questions/11582512/how-to-get-url-parameters-with-javascript/11582513#11582513
+        function getURLParameter(name) {
+            return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
+        }
+
+        var maxChars = getURLParameter('maxchars');
+        if (!maxChars) maxChars = 30;
+        var maxShadowLength = getURLParameter('maxshadowlength');
+        if (!maxShadowLength) maxShadowLength = 16;
+        var chars = [];
+        var shadows = [];
+        
+        function setup() {
+            createCanvas(displayWidth, displayHeight);
+            background(0, 0, 0);
+            for (var i = 0; i < maxChars; i++) {
+                var p = new char_factory(displayWidth, displayHeight);
+                p.init();
+                chars.push(p);
+            }
+        }
+
+        function draw() {
+            console.log(shadows.length);
+            background(0, 0, 0);
+            //blendMode(REPLACE);
+            // draw shadows
+            for (var i = 0; i < shadows.length; i++) {
+                var s = shadows[i];
+                s.update();
+                s.draw();
+                // remove shadows with 0 intensity
+                if (s.intensity <= 0 || s.life <= 0) shadows.splice(i, 1);
+            }
+            // draw the chars
+            for (var i = 0; i < chars.length; i++) {
+                var c = chars[i];
+                c.draw();
+                c.update();
+            }
+        };
+
+        // setup method for handling chars
+        var char_factory = function(width, height) {
+            
+            //this.shadows=[];
+            this.chars = "abcdefghijklmnopqrstuvwxyz01234567890-=_+!#$%^&*()";
+            
+            this.init = function() {
+                this.char = this.chars[Math.floor(Math.random() * this.chars.length)];
+                this.size = Math.floor((Math.random() * 30) + 10);
+                this.x = Math.floor((Math.random() * width) + 1);
+                this.y = 0;
+                this.increment = this.size;
+                this.intensity = Math.floor((Math.random() * 200) +55);
+            }
+            
+            this.draw = function() {
+                stroke(0, this.intensity, 0);
+                textFont('matrix-code');
+                textSize(this.size);
+                text(this.char, this.x, this.y);
+            }
+
+            // call this with each iteration to adjust intensity
+            this.update = function() {
+                // create shadow at original position
+                var s = new shadow(this.x, this.y, this.intensity, this.char, this.size - 7);
+                shadows.push(s);
+                // move downward
+                this.y += this.increment;
+                if (this.y > height) {
+                    this.init();
+                }
+                var r = Math.random();
+                this.char = this.chars[Math.floor(Math.random() * this.chars.length)];
+            }
+        };
+        
+        // setup shadow 
+        var shadow = function(x, y, intensity, char, size) {
+            this.x = x;
+            this.y = y;
+            this.intensity = 100;
+            this.char = char;
+            this.size = size;
+            // shadow will be removed from array at 0 life.
+            this.life = 8;
+            
+            this.draw = function() {
+                stroke(0, this.intensity, 0, 255);
+                textFont('matrix-code');
+                textSize(this.size);
+                text(this.char, this.x, this.y);
+            }
+            
+            this.update = function() {
+                this.life -= 1;
+                this.intensity -= 10;
+            }
+        }
+        
+        function windowResized() {
+            resizeCanvas(displayWidth, displayHeight);
+        };
+    </script>
+
+</head>
+
+<body onLoad="setup();"></body>
+
+</html>

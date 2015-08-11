@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="client/css/p5-matrix.css">
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/paper.js/0.9.22/paper-full.min.js"></script>
+<script type="text/paperscript" canvas="paper-matrix">
+
+        // http://stackoverflow.com/questions/11582512/how-to-get-url-parameters-with-javascript/11582513#11582513
+        function getURLParameter(name) {
+            return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
+        }
+
+        var maxChars = getURLParameter('maxchars');
+        if (!maxChars) maxChars = 30;
+        var maxShadowLength = getURLParameter('maxshadowlength');
+        if (!maxShadowLength) maxShadowLength = 16;
+
+        // CONSTANTS
+        var characters = "abcdefghijklmnopqrstuvwxyz01234567890-=_+!#$%^&*()";
+        
+        // get window dimensions
+        var displayWidth = window.innerWidth ||
+            document.documentElement.clientWidth ||
+            document.body.clientWidth;
+        var displayHeight = window.innerHeight ||
+            document.documentElement.clientHeight ||
+            document.body.clientHeight;
+
+        var canvas = document.getElementById("canvas");
+        
+        view.viewSize = new Size(displayWidth, displayHeight);
+        view.draw();
+        
+        // CALCULATED BASED ON CONSTANTS
+        var percentAlpha = 1/maxShadowLength;
+        var maxShadows = maxChars * maxShadowLength;
+
+        function rand(low, high) {
+            return Math.floor((Math.random() * high) + low);
+        };
+        
+        var chars = new Group();
+        var shadows = new Group();
+        
+        // Create our chars.
+        for (var i = 0; i < maxChars; i++) {
+        	var c = new PointText(new Point(300, 300));
+        	c.content = "What?";
+        	c.content = characters[rand(0, characters.length)];
+        	c.fontFamily = 'matrix-code';
+        	c.fontSize = '70px';
+        	c.fillColor = '#0f0';
+        	chars.addChild(c);
+        	randomize_char(c);
+        }
+        
+        function randomize_char(c) {
+            c.position.y = 0;
+            c.position.x = rand(0, view.size.width);
+            // vary the size
+            var scale = 1 * Math.random();
+            if (scale > 0.25) {
+                c.scale(scale);
+            }
+            // hack, using word wrap for shadow length
+            // c.wordWrapWidth = rand(maxShadowLength/3, maxShadowLength);
+            return;
+        };
+        
+        function onFrame(event) {
+        	for (var i = 0; i < maxChars; i++) {
+        		var c = chars.children[i];
+        		c.position.y += c.bounds.width;
+        		if (c.bounds.bottom > view.size.width) {
+        		    randomize_char(c);
+        		}
+        		// change char's character
+        		c.content = characters[rand(0, characters.length)];
+        	}
+        }
+        
+</script>
+</head>
+<body>
+	<canvas id="paper-matrix" resize></canvas>
+</body>
+</html>

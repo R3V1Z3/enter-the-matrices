@@ -1,0 +1,33 @@
+body {    
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #000;
+    width: 100%;
+    font-family: 'matrix-code';
+}
+
+@font-face {
+  font-family: 'matrix-code';
+  src: url('../assets/matrix-code.ttf') format('truetype');
+}
+
+#matrix {
+    width: 100%;
+    overflow: hidden;
+}
+
+.char {
+    text-shadow: 0px 0px 10px rgba(0, 255, 0, 0.7);
+    font-family: 'matrix-code';
+    color: #00ff00;
+    position: absolute;
+    display: block;
+}
+
+.clone {
+    font-family: 'matrix-code';
+    position: absolute;
+    display: block;
+    color: #00ff00;
+    opacity: 0.7;
+}

@@ -1,2 +1,3 @@
-# enter-the-matrices
-The Matrix raining code effect in various formats.
+# Enter the Matrices
+The Matrix raining code effect implemented in various formats and across
+various libraries.
