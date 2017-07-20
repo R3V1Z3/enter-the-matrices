@@ -12,7 +12,8 @@ various libraries.
 
 I've tried to implement options via url parameters, for example:  
 [p5-matrix.html?maxchars=60](p5-matrix.html?maxchars=60)  
-[jquery-matrix.html?maxchars=40&maxshadowlength=24](jquery-matrix.html?maxchars=40&maxshadowlength=24)  
+[pixi-0101.html?maxshadowlength=28](pixi-0101.html?maxshadowlength=28)  
 [pixi-matrix.html?maxchars=40&maxshadowlength=32](pixi-matrix.html?maxchars=40&maxshadowlength=32)  
+[jquery-matrix.html?maxchars=40&maxshadowlength=24](jquery-matrix.html?maxchars=40&maxshadowlength=24)  
 
 Source code here: https://github.com/Ugotsta/enter-the-matrices/tree/gh-pages
