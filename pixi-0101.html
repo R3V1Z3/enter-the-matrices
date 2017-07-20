@@ -15,8 +15,14 @@
         // TODO: there's a memory issue with the object deletion
         // the app slows over time due to this. Likely line 98.
     
-        var maxChars = 120;
-        var maxShadowLength = 16;
+        // http://stackoverflow.com/questions/11582512/how-to-get-url-parameters-with-javascript/11582513#11582513
+        function getURLParameter(name) {
+            return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
+        }
+        var maxChars = getURLParameter('maxchars');
+        if (!maxChars) maxChars = 120;
+        var maxShadowLength = getURLParameter('maxshadowlength');
+        if (!maxShadowLength) maxShadowLength = 16;
         
         var percentAlpha = 1/maxShadowLength;
         
