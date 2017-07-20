@@ -12,11 +12,18 @@
 <body>
     <div id="pixi-canvas"></div>
     <script>
-    
+        // http://stackoverflow.com/questions/11582512/how-to-get-url-parameters-with-javascript/11582513#11582513
+        function getURLParameter(name) {
+            return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null
+        }
+        var maxChars = getURLParameter('maxchars');
+        if (!maxChars) maxChars = 100;
+        var maxShadowLength = getURLParameter('maxshadowlength');
+        if (!maxShadowLength) maxShadowLength = 16;
+        
         // CONSTANTS
-        var maxChars = 100;
-        var maxShadowLength = 16;
         var characters = "01";
+        
         // get window dimensions
         var displayWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
         var displayHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
