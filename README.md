@@ -12,6 +12,7 @@ http://ugotsta.github.io/enter-the-matrices/pixi-matrix.html - Using [Pixi.js](h
 
 I've tried to implement options via url parameters, for example:  
 http://ugotsta.github.io/enter-the-matrices/p5-matrix.html?maxchars=60  
+http://ugotsta.github.io/enter-the-matrices/jquery-matrix.html?maxchars=40&maxshadowlength=24  
 http://ugotsta.github.io/enter-the-matrices/pixi-matrix.html?maxchars=40&maxshadowlength=32  
 
 Source code here: https://github.com/Ugotsta/enter-the-matrices/tree/gh-pages
