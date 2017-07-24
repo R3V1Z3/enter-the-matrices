@@ -16,4 +16,4 @@ I've tried to implement options via url parameters, for example:
 
 Libraries and tools implemented so far included: Pixi.js, P5.js, PaperJS and jQuery. I've excluded PhaserJS because it's my understanding that it uses Pixi.js for rendering so the Pixi.js examples should represent PhaserJS as well.
 
-Source code:https://github.com/Ugotsta/enter-the-matrices/
+Source code: [https://github.com/Ugotsta/enter-the-matrices/](https://github.com/Ugotsta/enter-the-matrices/)
