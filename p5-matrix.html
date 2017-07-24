@@ -93,7 +93,7 @@
             this.char = char;
             this.size = size;
             // shadow will be removed from array at 0 life.
-            this.life = 8;
+            this.life = maxshadowlength;
             
             this.draw = function() {
                 stroke(0, this.intensity, 0, 255);
@@ -104,7 +104,7 @@
             
             this.update = function() {
                 this.life -= 1;
-                this.intensity -= 10;
+                this.intensity -= 100 / maxshadowlength;
             }
         }
         
