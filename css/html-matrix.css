@@ -19,7 +19,7 @@ body {
 .char {
     text-shadow: 0px 0px 10px rgba(0, 255, 0, 0.7);
     font-family: 'matrix-code';
-    color: #00ff00;
+    color: #cfc;
     position: absolute;
     display: block;
 }
