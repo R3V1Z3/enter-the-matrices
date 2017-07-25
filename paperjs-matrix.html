@@ -74,7 +74,6 @@
 			s.opacity -= 0.25;
 			
         		c.position.y += c.bounds.height - 4;
-			c.opacity += 0.025;
         		if (c.bounds.bottom > view.size.height) {
         		    randomize_char(c);
         		}
@@ -82,7 +81,9 @@
         		c.content = characters[rand(0, characters.length)];
         	}
 		var items = paper.project.getItems({
-			fillColor: '#0f0'
+		    opacity: function(value) {
+			return value < 1;
+		    }
 		});
 		for (var i = 0; i < items.length; i++) {
 			items[i].opacity -= 0.25;
