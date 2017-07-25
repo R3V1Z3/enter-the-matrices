@@ -89,7 +89,8 @@
 			var s = shadows.children[i];
 			s.opacity -= 0.35;
 			if (s.opacity <= 0){
-				s.remove();
+				//s.remove();
+				shadows.removeChildren(i);
 				console.log('Shadows child removed.');
 			}
 		}
