@@ -53,8 +53,7 @@
         	c.content = characters[rand(0, characters.length)];
         	c.fontFamily = 'matrix-code';
         	c.fontSize = maxCharSize + 'px';
-		c.blendMode = 'hard-light';
-        	c.fillColor = '#afa';
+        	c.fillColor = '#cfc';
         	chars.addChild(c);
         	randomize_char(c);
         }
@@ -84,7 +83,9 @@
         		// change char's character
         		c.content = characters[rand(0, characters.length)];
         	}
-		var children = shadows.children
+		var children = shadows.children;
+		console.log('Children.length: ' = children.length);
+		console.log('Char.children.length: ' = char.children.length);
 		for (var i = 0; i < children.length; i++) {
 			var s = shadows.children[i];
 			s.opacity -= 0.35;
