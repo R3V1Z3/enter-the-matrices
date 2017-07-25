@@ -69,7 +69,7 @@
         function onFrame(event) {
 		var shadows = chars.clone();
 		shadows.fillColor = '#0f0';
-		shadows.opacity = 0.5;
+		shadows.opacity = 0.95;
         	for (var i = 0; i < maxChars; i++) {
         		var c = chars.children[i];			
         		c.position.y += c.bounds.height - 4;
@@ -85,7 +85,7 @@
 			}
 		});
 		for (var i = 0; i < items.length; i++) {
-			items[i].opacity -= 0.25;
+			items[i].opacity -= 0.025;
 			if(items[i].opacity <= 0){
 				items[i].remove();
 			}
