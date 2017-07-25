@@ -48,7 +48,7 @@
         // Create our chars.
         for (var i = 0; i < maxChars; i++) {
         	var c = new PointText(new Point(300, 300));
-        	c.content = "What?";
+        	c.content = "?";
         	c.content = characters[rand(0, characters.length)];
         	c.fontFamily = 'matrix-code';
         	c.fontSize = maxCharSize + 'px';
@@ -71,9 +71,9 @@
         	for (var i = 0; i < maxChars; i++) {
         		var c = chars.children[i];
 			
-			//var s = c.clone();
-			//s.fillColor = '#0f0';
-			//s.opacity -= 0.25;
+			var s = c.clone();
+			s.fillColor = '#0f0';
+			s.opacity -= 0.25;
 			
         		c.position.y += c.bounds.height - 4;
 			c.opacity += 0.025;
@@ -87,10 +87,11 @@
 			fillColor: '#0f0'
 		});
 		for (var i = 0; i < items.length; i++) {
-			items[i].opacity -= 0.25;
-			if(items[i].opacity <= 0){
-				items[i].remove();
-			}
+			items[i].remove();
+			//items[i].opacity -= 0.25;
+			//if(items[i].opacity <= 0){
+			//	items[i].remove();
+			//}
 		}
         }
         
