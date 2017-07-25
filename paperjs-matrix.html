@@ -70,8 +70,8 @@
         function onFrame(event) {
         	for (var i = 0; i < maxChars; i++) {
         		var c = chars.children[i];
-        		c.position.y += c.bounds.width;
-        		if (c.bounds.bottom > view.size.width) {
+        		c.position.y += c.bounds.height;
+        		if (c.bounds.bottom > view.size.height) {
         		    randomize_char(c);
         		}
         		// change char's character
