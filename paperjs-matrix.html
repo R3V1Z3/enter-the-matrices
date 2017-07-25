@@ -11,13 +11,13 @@
         }
 
         var maxChars = getURLParameter('maxchars');
-        if (!maxChars) maxChars = 30;
+        if (!maxChars) maxChars = 60;
         var maxShadowLength = getURLParameter('maxshadowlength');
         if (!maxShadowLength) maxShadowLength = 16;
         var minCharSize = getURLParameter('mincharsize');
-        if (!minCharSize) minCharSize = 10;
+        if (!minCharSize) minCharSize = 5;
         var maxCharSize = getURLParameter('maxcharsize');
-        if (!maxCharSize) maxCharSize = 60;
+        if (!maxCharSize) maxCharSize = 40;
 
         // CONSTANTS
         var characters = "abcdefghijklmnopqrstuvwxyz01234567890-=_+!#$%^&*()";
@@ -54,7 +54,6 @@
         	c.fontFamily = 'matrix-code';
         	c.fontSize = maxCharSize + 'px';
 		c.blendMode = 'hard-light';
-		c.opacity = 0.15;
         	c.fillColor = '#0f0';
         	chars.addChild(c);
         	randomize_char(c);
@@ -67,13 +66,14 @@
 	    c.fontSize = rand(minCharSize, maxCharSize) + 'px';
             // hack, using word wrap for shadow length
             // c.wordWrapWidth = rand(maxShadowLength/3, maxShadowLength);
+	    c.opacity = 0.15;
             return;
         };
         
         function onFrame(event) {
         	for (var i = 0; i < maxChars; i++) {
         		var c = chars.children[i];
-        		c.position.y += c.bounds.width;
+        		c.position.y += c.bounds.height - 4;
 			c.opacity += 0.025;
         		if (c.bounds.bottom > view.size.height) {
         		    randomize_char(c);
