@@ -89,7 +89,7 @@
 			var s = shadows.children[i];
 			s.opacity -= 0.25;
 			if (s.opacity < 0.15){
-				shadows.removeChild(s);
+				s.remove();
 			}
 		}
         }
