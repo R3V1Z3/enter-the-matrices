@@ -54,7 +54,7 @@
         	c.fontFamily = 'matrix-code';
         	c.fontSize = maxCharSize + 'px';
 		c.blendMode = 'hard-light';
-        	c.fillColor = '#0f0';
+        	c.fillColor = '#afa';
         	chars.addChild(c);
         	randomize_char(c);
         }
@@ -66,7 +66,6 @@
 	    c.fontSize = rand(minCharSize, maxCharSize) + 'px';
             // hack, using word wrap for shadow length
             // c.wordWrapWidth = rand(maxShadowLength/3, maxShadowLength);
-	    //c.opacity = 0.15;
             return;
         };
         
@@ -74,7 +73,8 @@
         	for (var i = 0; i < maxChars; i++) {
         		var c = chars.children[i];
 			var s = c.clone();
-			s.opacity -= 0.25;
+			s.fillColor = '#0f0';
+			s.opacity -= 0.35;
 			shadows.addChild(s);
         		c.position.y += c.bounds.height - 4;
 			c.opacity += 0.025;
@@ -87,8 +87,8 @@
 		var children = shadows.children
 		for (var i = 0; i < children.length; i++) {
 			var s = shadows.children[i];
-			s.opacity -= 0.25;
-			if (s.opacity < 0.15){
+			s.opacity -= 0.35;
+			if (s.opacity < 0.05){
 				s.remove();
 			}
 		}
