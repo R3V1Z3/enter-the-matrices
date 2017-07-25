@@ -14,6 +14,10 @@
         if (!maxChars) maxChars = 30;
         var maxShadowLength = getURLParameter('maxshadowlength');
         if (!maxShadowLength) maxShadowLength = 16;
+        var minCharSize = getURLParameter('mincharsize');
+        if (!minCharSize) minCharSize = 10;
+        var maxCharSize = getURLParameter('maxcharsize');
+        if (!maxCharSize) maxCharSize = 60;
 
         // CONSTANTS
         var characters = "abcdefghijklmnopqrstuvwxyz01234567890-=_+!#$%^&*()";
@@ -48,7 +52,7 @@
         	c.content = "What?";
         	c.content = characters[rand(0, characters.length)];
         	c.fontFamily = 'matrix-code';
-        	c.fontSize = '70px';
+        	c.fontSize = maxCharSize + 'px';
         	c.fillColor = '#0f0';
         	chars.addChild(c);
         	randomize_char(c);
@@ -58,8 +62,7 @@
             c.position.y = 0;
             c.position.x = rand(0, view.size.width);
             // vary the size
-	    var textSize = rand(20, 70);
-	    c.fontSize = textSize + 'px';
+	    c.fontSize = rand(minCharSize, maxCharSize) + 'px';
             // hack, using word wrap for shadow length
             // c.wordWrapWidth = rand(maxShadowLength/3, maxShadowLength);
             return;
