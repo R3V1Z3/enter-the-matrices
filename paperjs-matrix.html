@@ -54,6 +54,7 @@
         	c.fontFamily = 'matrix-code';
         	c.fontSize = maxCharSize + 'px';
 		c.blendMode = 'hard-light';
+		c.opacity = 0.15;
         	c.fillColor = '#0f0';
         	chars.addChild(c);
         	randomize_char(c);
@@ -73,6 +74,7 @@
         	for (var i = 0; i < maxChars; i++) {
         		var c = chars.children[i];
         		c.position.y += c.bounds.height;
+			c.opacity += 0.025;
         		if (c.bounds.bottom > view.size.height) {
         		    randomize_char(c);
         		}
