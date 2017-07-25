@@ -83,14 +83,14 @@
         		// change char's character
         		c.content = characters[rand(0, characters.length)];
         	}
-		var children = shadows.children;
 		console.log('shadows.children.length: ' + children.length);
 		console.log('chars.children.length: ' + chars.children.length);
-		for (var i = 0; i < children.length; i++) {
+		for (var i = 0; i < shadows.children.length; i++) {
 			var s = shadows.children[i];
 			s.opacity -= 0.35;
-			if (s.opacity < 0.05){
+			if (s.opacity <= 0){
 				s.remove();
+				console.log('Shadows child removed.');
 			}
 		}
         }
