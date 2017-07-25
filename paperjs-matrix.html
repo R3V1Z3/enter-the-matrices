@@ -71,8 +71,8 @@
         		var c = chars.children[i];
 			
 			var s = c.clone();
-			s.fillColor = '#0f0';
-			s.opacity = 0.75;
+			//s.fillColor = '#0f0';
+			//s.opacity = 0.75;
 			
         		c.position.y += c.bounds.height - 4;
         		if (c.bounds.bottom > view.size.height) {
@@ -81,6 +81,7 @@
         		// change char's character
         		c.content = characters[rand(0, characters.length)];
         	}
+		/*
 		var items = paper.project.getItems({
 			opacity: function(value) {
 				return value < 1;
@@ -92,6 +93,7 @@
 				items[i].remove();
 			}
 		}
+		*/
         }
         
 </script>
