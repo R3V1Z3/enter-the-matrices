@@ -53,6 +53,7 @@
         	c.content = characters[rand(0, characters.length)];
         	c.fontFamily = 'matrix-code';
         	c.fontSize = maxCharSize + 'px';
+		c.blendMode = 'hard-light';
         	c.fillColor = '#0f0';
         	chars.addChild(c);
         	randomize_char(c);
@@ -72,11 +73,8 @@
         	for (var i = 0; i < maxChars; i++) {
         		var c = chars.children[i];
         		c.position.y += c.bounds.height;
-			// decrease opacity
-			c.opacity -= 0.025;
         		if (c.bounds.bottom > view.size.height) {
         		    randomize_char(c);
-			    c.opacity = 1;
         		}
         		// change char's character
         		c.content = characters[rand(0, characters.length)];
