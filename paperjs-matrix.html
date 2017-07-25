@@ -50,7 +50,6 @@
         	c.fontFamily = 'matrix-code';
         	c.fontSize = '70px';
         	c.fillColor = '#0f0';
-		c.applyMatrix = false;
         	chars.addChild(c);
         	randomize_char(c);
         }
@@ -61,6 +60,7 @@
             // vary the size
             var scale = 1 * Math.random();
             if (scale > 0.35) {
+	    	c.applyMatrix = false;
                 c.scale(scale);
             }
             // hack, using word wrap for shadow length
