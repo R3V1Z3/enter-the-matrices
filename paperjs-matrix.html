@@ -73,7 +73,7 @@
         function onFrame(event) {
         	for (var i = 0; i < maxChars; i++) {
         		var c = chars.children[i];
-			var s = c;
+			var s = c.clone();
 			s.opacity -= 0.25;
 			shadows.addChild(s);
         		c.position.y += c.bounds.height - 4;
