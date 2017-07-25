@@ -44,7 +44,6 @@
         };
         
         var chars = new Group();
-        var shadows = new Group();
         
         // Create our chars.
         for (var i = 0; i < maxChars; i++) {
@@ -75,7 +74,6 @@
 			var s = c.clone();
 			s.fillColor = '#0f0';
 			s.opacity -= 0.025;
-			//shadows.addChild(s);
 			
         		c.position.y += c.bounds.height - 4;
 			c.opacity += 0.025;
@@ -85,9 +83,8 @@
         		// change char's character
         		c.content = characters[rand(0, characters.length)];
         	}
-		//shadows.opacity -= 0.025;
 		var items = project.getItems({
-			s.fillColor = '#0f0',
+			fillColor = '#0f0',
 			opacity: 0
 		});
 		for (var i = 0; i < items.length; i++) {
@@ -96,8 +93,6 @@
 				items[i].remove();
 			}
 		}
-		//console.log('shadows.children.length: ' + shadows.children.length);
-		console.log('chars.children.length: ' + chars.children.length);
         }
         
 </script>
