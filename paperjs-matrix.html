@@ -62,8 +62,6 @@
             c.position.x = rand(0, view.size.width);
             // vary the size
 	    c.fontSize = rand(minCharSize, maxCharSize) + 'px';
-            // hack, using word wrap for shadow length
-            // c.wordWrapWidth = rand(maxShadowLength/3, maxShadowLength);
             return;
         };
         
@@ -83,15 +81,14 @@
         		// change char's character
         		c.content = characters[rand(0, characters.length)];
         	}
-		var items = project.getItems({
+		var items = paper.project.getItems({
 			fillColor: '#0f0'
 		});
 		for (var i = 0; i < items.length; i++) {
-			items[i].remove();
-			//items[i].opacity -= 0.25;
-			//if(items[i].opacity <= 0){
-			//	items[i].remove();
-			//}
+			items[i].opacity -= 0.25;
+			if(items[i].opacity <= 0){
+				items[i].remove();
+			}
 		}
         }
         
