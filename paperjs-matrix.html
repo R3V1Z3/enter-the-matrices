@@ -71,10 +71,12 @@
         function onFrame(event) {
         	for (var i = 0; i < maxChars; i++) {
         		var c = chars.children[i];
+			
 			var s = c.clone();
 			s.fillColor = '#0f0';
-			s.opacity -= 0.35;
+			s.opacity -= 0.25;
 			shadows.addChild(s);
+			
         		c.position.y += c.bounds.height - 4;
 			c.opacity += 0.025;
         		if (c.bounds.bottom > view.size.height) {
@@ -83,17 +85,13 @@
         		// change char's character
         		c.content = characters[rand(0, characters.length)];
         	}
+		shadows.opacity -= 0.25;
+		var items = project.getItems({
+		    opacity: 0
+		});
+		items.remove();
 		console.log('shadows.children.length: ' + shadows.children.length);
 		console.log('chars.children.length: ' + chars.children.length);
-		for (var i = 0; i < shadows.children.length; i++) {
-			var s = shadows.children[i];
-			s.opacity -= 0.35;
-			if (s.opacity <= 0){
-				//s.remove();
-				shadows.removeChildren(i);
-				console.log('Shadows child removed.');
-			}
-		}
         }
         
 </script>
