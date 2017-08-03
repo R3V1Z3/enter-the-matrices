@@ -16,6 +16,10 @@
         if (!maxChars) maxChars = 20;
         var maxShadowLength = getURLParameter('maxshadowlength');
         if (!maxShadowLength) maxShadowLength = 16;
+        var minCharSize = getURLParameter('mincharsize');
+        if (!minCharSize) minCharSize = 8;
+        var maxCharSize = getURLParameter('maxcharsize');
+        if (!maxCharSize) maxCharSize = 30;
     
         var chars = [];
         var shadows = [];
@@ -56,7 +60,7 @@
             
             var randomizeChar = function() {
                 var char = characters[rand(0, characters.length)];
-                var size = rand(8, 30);
+                var size = rand(minCharSize, maxCharSize);
                 var x = rand(0, displayWidth);
                 var y = 0;
                 var result = '<div class="char" style="';
