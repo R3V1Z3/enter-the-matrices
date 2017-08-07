@@ -34,9 +34,7 @@
         }
 
         function draw() {
-            console.log(shadows.length);
             background(0, 0, 0);
-            //blendMode(REPLACE);
             // draw shadows
             for (var i = 0; i < shadows.length; i++) {
                 var s = shadows[i];
@@ -85,7 +83,6 @@
                 if (this.y > height) {
                     this.init();
                 }
-                var r = Math.random();
                 this.char = this.chars[Math.floor(Math.random() * this.chars.length)];
             }
         };
